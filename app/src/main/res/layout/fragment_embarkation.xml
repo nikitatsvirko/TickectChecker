@@ -1,14 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
 
-    <ImageView
-        android:id="@+id/image"
+    <include
+        android:id="@+id/stationTextContainer"
+        layout="@layout/station_input_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_embarkation" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/scanButtonsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stationTextContainer"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/qrButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/small_padding"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="@string/qr_code_text"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color" />
+
+        <Button
+            android:id="@+id/scanButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/small_padding"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="@string/scan_code_text"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/startEmbButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/small_padding"
+        android:background="@drawable/button_shape"
+        android:padding="@dimen/small_padding"
+        android:text="@string/start_embarkation"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_color" />
+
+    <LinearLayout
+        android:id="@+id/finishEmbButtonsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/listButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/small_padding"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="@string/list_text"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color" />
+
+        <Button
+            android:id="@+id/finishButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/small_padding"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="@string/finish_emb_text"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color" />
+
+    </LinearLayout>
+
+</RelativeLayout>

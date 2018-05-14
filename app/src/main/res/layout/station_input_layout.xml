@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/stationText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/regular_text_size"
+        android:textColor="@android:color/black"
+        android:text="@string/station_text"
+        android:gravity="center" />
+
+    <AutoCompleteTextView
+        android:id="@+id/stationAutoComplete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:hint="@string/station_hint"
+        android:focusableInTouchMode="true"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/regular_text_size" />
+
+</LinearLayout>

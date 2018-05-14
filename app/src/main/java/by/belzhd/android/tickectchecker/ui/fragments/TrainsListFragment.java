@@ -1,11 +1,18 @@
 package by.belzhd.android.tickectchecker.ui.fragments;
 
+import android.view.View;
+
 import by.belzhd.android.tickectchecker.R;
 
 public class TrainsListFragment extends AbstractFragment {
 
     public static TrainsListFragment newInstance() {
         return new TrainsListFragment();
+    }
+
+    @Override
+    protected void initUi(View view) {
+
     }
 
     @Override

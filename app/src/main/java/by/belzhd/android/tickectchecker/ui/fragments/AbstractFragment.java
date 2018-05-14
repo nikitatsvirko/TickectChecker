@@ -37,7 +37,10 @@ public abstract class AbstractFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setUpActionBar();
+        initUi(view);
     }
+
+    protected abstract void initUi(View view);
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
