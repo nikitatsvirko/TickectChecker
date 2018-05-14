@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_embarkation"
+        android:icon="@drawable/ic_embarkation"
+        android:title="@string/title_embarkation"/>
+
+    <item
+        android:id="@+id/navigation_disembarkation"
+        android:layout_width="wrap_content"
+        android:icon="@drawable/ic_disembarkation"
+        android:title="@string/title_disembarkation"/>
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_view_list"
+        android:title="@string/title_trains_list"/>
+</menu>

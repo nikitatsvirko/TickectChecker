@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_list">
+        <item>Минск - Гродно</item>
+        <item>Брест - Москва</item>
+        <item>Вильнюс - Киев</item>
+        <item>Париж - Санкт-Петербург</item>
+        <item>Беларусь - Минск</item>
+    </string-array>
+</resources>
