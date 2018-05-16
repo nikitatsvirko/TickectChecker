@@ -1,11 +1,8 @@
 package by.belzhd.android.tickectchecker.ui.fragments;
 
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.support.transition.TransitionManager;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -24,7 +21,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     private Button startEmbButton;
     private LinearLayout finishButtonsContainer;
     private RelativeLayout addPersconContainer;
-    private Button showListButton;
+    private Button addEmbButton;
     private Button finishEmbButton;
 
     public static EmbarkationFragment newInstance() {
@@ -40,8 +37,8 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         qrButton = view.findViewById(R.id.qrButton);
         scanButton = view.findViewById(R.id.scanButton);
         startEmbButton = view.findViewById(R.id.startEmbButton);
-        showListButton = view.findViewById(R.id.listButton);
-        finishEmbButton = view.findViewById(R.id.finishButton);
+        addEmbButton = view.findViewById(R.id.addEmbButton);
+        finishEmbButton = view.findViewById(R.id.finishEmbButton);
 
         startEmbButton.setOnClickListener(this);
         finishEmbButton.setOnClickListener(this);
@@ -66,7 +63,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
             case R.id.startEmbButton:
                 onStartClicked();
                 break;
-            case R.id.finishButton:
+            case R.id.finishEmbButton:
                 showAlert();
                 break;
             case R.id.qrButton:

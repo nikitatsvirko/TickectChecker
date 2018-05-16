@@ -1,10 +1,24 @@
 package by.belzhd.android.tickectchecker.ui.fragments;
 
+import android.content.DialogInterface;
+import android.support.transition.TransitionManager;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
-public class DisembarkationFragment extends AbstractFragment {
+public class DisembarkationFragment extends AbstractFragment implements View.OnClickListener {
+
+    private RelativeLayout container;
+    private AutoCompleteTextView stationAutoCompleteText;
+    private Button startDisEmbButton;
+    private LinearLayout finishButtonsContainer;
+    private Button addDisEmbButton;
+    private Button finishDisEmbButton;
 
     public static DisembarkationFragment newInstance() {
         return new DisembarkationFragment();
@@ -12,7 +26,15 @@ public class DisembarkationFragment extends AbstractFragment {
 
     @Override
     protected void initUi(View view) {
+        container = view.findViewById(R.id.container);
+        finishButtonsContainer = view.findViewById(R.id.finishDisEmbButtonsContainer);
+        stationAutoCompleteText = view.findViewById(R.id.stationAutoComplete);
+        startDisEmbButton = view.findViewById(R.id.startDisEmbButton);
+        addDisEmbButton = view.findViewById(R.id.addDisEmbButton);
+        finishDisEmbButton = view.findViewById(R.id.finishDisEmbButton);
 
+        startDisEmbButton.setOnClickListener(this);
+        finishDisEmbButton.setOnClickListener(this);
     }
 
     @Override
@@ -23,5 +45,48 @@ public class DisembarkationFragment extends AbstractFragment {
     @Override
     int getTitleResId() {
         return R.string.title_disembarkation;
+    }
+
+    @Override
+    public void onClick(View v) {
+        TransitionManager.beginDelayedTransition(container);
+        switch (v.getId()) {
+            case R.id.startDisEmbButton:
+                onStartClicked();
+                break;
+            case R.id.finishDisEmbButton:
+                showAlert();
+                break;
+        }
+    }
+
+    private void onFinishClicked() {
+        startDisEmbButton.setVisibility(View.VISIBLE);
+        finishButtonsContainer.setVisibility(View.GONE);
+        stationAutoCompleteText.setEnabled(true);
+    }
+
+    private void onStartClicked() {
+        startDisEmbButton.setVisibility(View.GONE);
+        finishButtonsContainer.setVisibility(View.VISIBLE);
+        stationAutoCompleteText.setEnabled(false);
+    }
+
+    private void showAlert() {
+        AlertBuilder.showAlert(getActivity(), getActivity().getResources().getString(R.string.finish_disemb_text),
+                getActivity().getResources().getString(R.string.finish_disemb_message),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onFinishClicked();
+                        dialog.cancel();
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
     }
 }

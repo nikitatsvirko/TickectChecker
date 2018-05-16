@@ -24,4 +24,7 @@
     <string name="fake_second_name">Иванов</string>
     <string name="fake_first_name">Н.Н.</string>
     <string name="add_text">Добавить</string>
+    <string name="start_disembarkation">Начать высадку</string>
+    <string name="finish_disemb_text">Закончить высадку</string>
+    <string name="finish_disemb_message">Вы уверены что хотите закончить высадку?</string>
 </resources>

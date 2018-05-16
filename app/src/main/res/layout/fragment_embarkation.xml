@@ -79,7 +79,7 @@
         android:visibility="gone">
 
         <Button
-            android:id="@+id/listButton"
+            android:id="@+id/addEmbButton"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -91,7 +91,7 @@
             android:textColor="@color/button_text_color" />
 
         <Button
-            android:id="@+id/finishButton"
+            android:id="@+id/finishEmbButton"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="50dp"
