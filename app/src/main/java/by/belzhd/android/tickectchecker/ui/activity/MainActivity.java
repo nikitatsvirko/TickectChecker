@@ -62,25 +62,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
         TransitionManager.beginDelayedTransition(container);
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment);
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
-        transaction.replace(R.id.container, fragment).commit();
+        transaction.commit();
     }
 
     public void hideBottomNavigation() {
         navigation.setVisibility(View.GONE);
     }
 
-    public void showBottonNavigation() {
+    public void showBottomNavigation() {
         navigation.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onBackPressed() {
         if (navigation.getVisibility() == View.GONE) {
-            navigation.setVisibility(View.VISIBLE);
+            showBottomNavigation();
         }
         super.onBackPressed();
     }
