@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
 public class EmbarkationFragment extends AbstractFragment implements View.OnClickListener {
@@ -42,6 +43,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
         startEmbButton.setOnClickListener(this);
         finishEmbButton.setOnClickListener(this);
+        addEmbButton.setOnClickListener(this);
         qrButton.setOnClickListener(this);
         scanButton.setOnClickListener(this);
     }
@@ -72,7 +74,15 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
             case R.id.scanButton:
                 startScan();
                 break;
+            case R.id.addEmbButton:
+                showAddScreen();
+                break;
         }
+    }
+
+    private void showAddScreen() {
+        ((MainActivity) getActivity()).hideBottomNavigation();
+        ((MainActivity) getActivity()).replaceFragment(EmbarkationAddFragment.newInstance(), true);
     }
 
     private void startScan() {

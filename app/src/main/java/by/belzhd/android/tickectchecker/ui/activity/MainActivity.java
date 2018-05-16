@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import by.belzhd.android.tickectchecker.R;
@@ -55,13 +56,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = TrainsListFragment.newInstance();
                 break;
         }
-        TransitionManager.beginDelayedTransition(container);
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, fragment).commit();
+        replaceFragment(fragment, false);
         return true;
     }
 
-    public BottomNavigationView getBottomNavigation() {
-        return navigation;
+    public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+        TransitionManager.beginDelayedTransition(container);
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+        transaction.replace(R.id.container, fragment).commit();
+    }
+
+    public void hideBottomNavigation() {
+        navigation.setVisibility(View.GONE);
+    }
+
+    public void showBottonNavigation() {
+        navigation.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (navigation.getVisibility() == View.GONE) {
+            navigation.setVisibility(View.VISIBLE);
+        }
+        super.onBackPressed();
     }
 }

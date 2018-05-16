@@ -20,6 +20,8 @@
     <string name="place_hint">Место</string>
     <string name="second_name">Фамилия:</string>
     <string name="first_name">Инициалы:</string>
+    <string name="second_name_hint">Фамилия</string>
+    <string name="first_name_hint">Инициалы</string>
     <string name="check_text">Отметить</string>
     <string name="fake_second_name">Иванов</string>
     <string name="fake_first_name">Н.Н.</string>
@@ -27,4 +29,9 @@
     <string name="start_disembarkation">Начать высадку</string>
     <string name="finish_disemb_text">Закончить высадку</string>
     <string name="finish_disemb_message">Вы уверены что хотите закончить высадку?</string>
+    <string name="from_station">Станция посадки:</string>
+    <string name="to_station">Станция высадки:</string>
+    <string name="from_station_hint">Минск</string>
+    <string name="to_station_hint">Ратомка</string>
+
 </resources>
