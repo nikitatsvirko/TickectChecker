@@ -14,4 +14,7 @@
     <string name="no">Нет</string>
     <string name="finish_emb_message">Вы уверены что хотите закончить посадку?</string>
     <string name="station_hint">Минск-Пассажирский</string>
+    <string name="carriage">Вагон</string>
+    <string name="place">Место</string>
+    <string name="second_name">Фамилия</string>
 </resources>
