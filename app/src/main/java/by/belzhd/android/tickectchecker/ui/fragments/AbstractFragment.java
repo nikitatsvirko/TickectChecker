@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import by.belzhd.android.tickectchecker.R;
 
@@ -61,6 +63,10 @@ public abstract class AbstractFragment extends Fragment {
         if (actionBar != null) {
             actionBar.setTitle(getActivity().getString(getTitleResId()));
         }
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     abstract int getLayoutId();

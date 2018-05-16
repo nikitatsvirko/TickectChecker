@@ -3,12 +3,14 @@ package by.belzhd.android.tickectchecker.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 import by.belzhd.android.tickectchecker.R;
 import by.belzhd.android.tickectchecker.ui.fragments.DisembarkationFragment;
@@ -19,18 +21,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private Toolbar toolbar;
 
+    private RelativeLayout container;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        container = findViewById(R.id.layout_container);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        BottomNavigationView navigation =   findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
@@ -50,8 +55,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = TrainsListFragment.newInstance();
                 break;
         }
+        TransitionManager.beginDelayedTransition(container);
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment).commit();
         return true;
+    }
+
+    public BottomNavigationView getBottomNavigation() {
+        return navigation;
     }
 }

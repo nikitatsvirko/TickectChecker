@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/stationTextContainer"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:orientation="horizontal">
 
         <Button
@@ -47,9 +48,17 @@
 
     </LinearLayout>
 
+    <include
+        layout="@layout/add_person_layout"
+        android:visibility="gone"
+        android:id="@+id/addPersonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scanButtonsContainer"/>
+
     <Button
         android:id="@+id/startEmbButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/single_button_width"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -77,7 +86,7 @@
             android:layout_margin="@dimen/small_padding"
             android:layout_weight="1"
             android:background="@drawable/button_shape"
-            android:text="@string/list_text"
+            android:text="@string/add_text"
             android:textAllCaps="false"
             android:textColor="@color/button_text_color" />
 

@@ -14,7 +14,14 @@
     <string name="no">Нет</string>
     <string name="finish_emb_message">Вы уверены что хотите закончить посадку?</string>
     <string name="station_hint">Минск-Пассажирский</string>
-    <string name="carriage">Вагон</string>
-    <string name="place">Место</string>
-    <string name="second_name">Фамилия</string>
+    <string name="carriage">Вагон:</string>
+    <string name="place">Место:</string>
+    <string name="carriage_hint">Вагон</string>
+    <string name="place_hint">Место</string>
+    <string name="second_name">Фамилия:</string>
+    <string name="first_name">Инициалы:</string>
+    <string name="check_text">Отметить</string>
+    <string name="fake_second_name">Иванов</string>
+    <string name="fake_first_name">Н.Н.</string>
+    <string name="add_text">Добавить</string>
 </resources>
