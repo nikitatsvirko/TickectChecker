@@ -33,5 +33,6 @@
     <string name="to_station">Станция высадки:</string>
     <string name="from_station_hint">Минск</string>
     <string name="to_station_hint">Ратомка</string>
+    <string name="cancel_text">Отмена</string>
 
 </resources>
