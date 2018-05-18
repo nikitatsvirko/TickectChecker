@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.TicketCheckerApplication;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
