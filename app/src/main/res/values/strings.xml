@@ -34,5 +34,8 @@
     <string name="from_station_hint">Минск</string>
     <string name="to_station_hint">Ратомка</string>
     <string name="cancel_text">Отмена</string>
+    <string name="load_route">Загрузить маршрут</string>
+    <string name="refresh_route">Обновить маршрут</string>
+    <string name="send_report">Отправить отчёт </string>
 
 </resources>

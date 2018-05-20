@@ -7,4 +7,16 @@
         <item>Париж - Санкт-Петербург</item>
         <item>Беларусь - Минск</item>
     </string-array>
+
+    <string-array name="left_spinner_list">
+        <item>Фамилия</item>
+        <item>Вагон/Место</item>
+        <item>Станция</item>
+    </string-array>
+
+    <string-array name="right_spinner_list">
+        <item>Полная</item>
+        <item>Текущая</item>
+        <item>Отчёт</item>
+    </string-array>
 </resources>

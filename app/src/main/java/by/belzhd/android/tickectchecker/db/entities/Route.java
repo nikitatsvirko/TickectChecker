@@ -5,20 +5,20 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "route", foreignKey1 = @ForeignKey(entity = StationCode.class,
+@Entity(tableName = "route", foreignKeys = {@ForeignKey(entity = StationCode.class,
                                                                 parentColumns = "id",
                                                                 childColumns = "start_station",
                                                                 onDelete = ForeignKey.CASCADE),
-                                         foreignKey2 = @ForeignKey(entity = StationCode.class,
+                                            @ForeignKey(entity = StationCode.class,
                                                                 parentColumns = "id",
                                                                 childColumns = "end_station",
                                                                 onDelete = ForeignKey.CASCADE),
-                                         foreignKey3 = @ForeignKey(entity = Train.class,
+                                            @ForeignKey(entity = Train.class,
                                                                 parentColumns = "id",
                                                                 childColumns = "train_number",
-                                                                onDelete = ForeignKey.CASCADE))
+                                                                onDelete = ForeignKey.CASCADE)})
 
-                                                  //хз как несколько ключей задавать, поэтому так))
+
 public class Route {
     @PrimaryKey(autoGenerate = true)
     private int id;

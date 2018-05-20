@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "seat", foreignKeys = @ForeignKey(entity = Cariage.class,
                                                       parentColumns = "id",
                                                       childColumns = "cariage_id",
-                                                        onDelete = ForeignKey.CASCADE))
+                                                      onDelete = ForeignKey.CASCADE))
 public class Seat {
     @PrimaryKey(autoGenerate = true)
     private int id;

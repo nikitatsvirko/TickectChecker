@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "passengers_status", foreignKey1 = @ForeignKey(entity = Seat.class,
+@Entity(tableName = "passengers_status", foreignKeys = { @ForeignKey(entity = Seat.class,
                                                                     parentColumns = "id",
                                                                     childColumns = "seat_id",
                                                                     onDelete = ForeignKey.CASCADE),
-                                                                    foreignKey2 = @ForeignKey(entity = Route.class,
+                                                                    @ForeignKey(entity = Route.class,
                                                                             parentColumns = "id",
                                                                             childColumns = "route_id",
                                                                             onDelete = ForeignKey.CASCADE),
-                                                                    foreignKey3 = @ForeignKey(entity = StationCode.class,
+                                                                    @ForeignKey(entity = StationCode.class,
                                                                             parentColumns = "id",
                                                                             childColumns = "entry_station",
                                                                             onDelete = ForeignKey.CASCADE),
-                                                                    foreignKey4 = @ForeignKey(entity = StationCode.class,
+                                                                    @ForeignKey(entity = StationCode.class,
                                                                             parentColumns = "id",
                                                                             childColumns = "exit_station",
                                                                             onDelete = ForeignKey.CASCADE),
-                                                                    foreignKey5 = @ForeignKey(entity = Passengers.class,
+                                                                    @ForeignKey(entity = Passengers.class,
                                                                             parentColumns = "id",
                                                                             childColumns = "passenger",
-                                                                            onDelete = ForeignKey.CASCADE))
+                                                                            onDelete = ForeignKey.CASCADE)})
 
 //хз как несколько ключей задавать, поэтому так))
 public class PassengersStatus {
