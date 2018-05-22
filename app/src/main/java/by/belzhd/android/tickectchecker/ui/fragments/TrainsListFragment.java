@@ -8,11 +8,11 @@ import android.widget.ArrayAdapter;
 import by.belzhd.android.tickectchecker.R;
 
 public class TrainsListFragment extends AbstractFragment {
-    Spinner lSpinner;
-    Spinner rSpinner;
-    Button loadRoute;
-    Button refRoute;
-    Button sendReport;
+    private Spinner leftSpinner;
+    private Spinner rightSpinner;
+    private Button loadRoute;
+    private Button refRoute;
+    private Button sendReport;
 
     public static TrainsListFragment newInstance() {
         return new TrainsListFragment();
@@ -20,8 +20,8 @@ public class TrainsListFragment extends AbstractFragment {
 
     @Override
     protected void initUi(View view) {
-        lSpinner = view.findViewById(R.id.leftspinner);
-        rSpinner = view.findViewById(R.id.rightspinner);
+        leftSpinner = view.findViewById(R.id.leftSpinner);
+        rightSpinner = view.findViewById(R.id.rightSpinner);
 
         loadRoute = view.findViewById(R.id.load_route);
         refRoute = view.findViewById(R.id.ref_route);
@@ -29,14 +29,14 @@ public class TrainsListFragment extends AbstractFragment {
 
 
         ArrayAdapter<CharSequence> leftAdapter =  ArrayAdapter.createFromResource(getActivity(),
-                R.array.left_spinner_list, R.layout.spinner_item);
+                R.array.left_spinner_list, R.layout.spinner_item_black);
         leftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lSpinner.setAdapter(leftAdapter);
+        leftSpinner.setAdapter(leftAdapter);
 
         ArrayAdapter<CharSequence> rightAdapter =  ArrayAdapter.createFromResource(getActivity(),
-                R.array.right_spinner_list, R.layout.spinner_item);
+                R.array.right_spinner_list, R.layout.spinner_item_black);
         rightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rSpinner.setAdapter(rightAdapter);
+        rightSpinner.setAdapter(rightAdapter);
 
     }
 
