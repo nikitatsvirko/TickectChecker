@@ -140,12 +140,12 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
     private void onFinishClicked() {
         startEmbButton.setVisibility(View.VISIBLE);
-        finishButtonsContainer.setVisibility(View.GONE);
+        finishButtonsContainer.setVisibility(View.INVISIBLE);
         stationAutoCompleteText.setEnabled(true);
     }
 
     private void onStartClicked() {
-        startEmbButton.setVisibility(View.GONE);
+        startEmbButton.setVisibility(View.INVISIBLE);
         finishButtonsContainer.setVisibility(View.VISIBLE);
         stationAutoCompleteText.setEnabled(false);
     }
