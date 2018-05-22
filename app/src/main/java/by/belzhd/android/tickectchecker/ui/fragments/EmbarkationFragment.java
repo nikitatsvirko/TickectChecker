@@ -133,7 +133,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         integrator.initiateScan();
     }
 
-    public static void onCodeScaned(String data) {
+    public static void onCodeScanned(String data) {
         addPersonContainer.setVisibility(View.VISIBLE);
         stationAutoCompleteText.setText(data);
     }

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Toast.makeText(this, R.string.cancelled_text, Toast.LENGTH_LONG).show();
             } else {
                 if (fragment instanceof EmbarkationFragment) {
-                    EmbarkationFragment.onCodeScaned(result.getContents());
+                    EmbarkationFragment.onCodeScanned(result.getContents());
                 }
             }
         } else {
