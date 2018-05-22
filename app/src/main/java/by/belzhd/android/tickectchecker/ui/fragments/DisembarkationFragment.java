@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
 public class DisembarkationFragment extends AbstractFragment implements View.OnClickListener {
@@ -34,6 +35,7 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
         finishDisEmbButton = view.findViewById(R.id.finishDisEmbButton);
 
         startDisEmbButton.setOnClickListener(this);
+        addDisEmbButton.setOnClickListener(this);
         finishDisEmbButton.setOnClickListener(this);
     }
 
@@ -54,10 +56,18 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
             case R.id.startDisEmbButton:
                 onStartClicked();
                 break;
+            case R.id.addDisEmbButton:
+                showAddScreen();
+                break;
             case R.id.finishDisEmbButton:
                 showAlert();
                 break;
         }
+    }
+
+    private void showAddScreen() {
+        ((MainActivity) getActivity()).hideBottomNavigation();
+        ((MainActivity) getActivity()).replaceFragment(DisembarkationAddFragment.newInstance(), true);
     }
 
     private void onFinishClicked() {
