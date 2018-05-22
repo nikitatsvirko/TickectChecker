@@ -37,5 +37,6 @@
     <string name="load_route">Загрузить маршрут</string>
     <string name="refresh_route">Обновить маршрут</string>
     <string name="send_report">Отправить отчёт </string>
+    <string name="cancelled_text">Отменено</string>
 
 </resources>
