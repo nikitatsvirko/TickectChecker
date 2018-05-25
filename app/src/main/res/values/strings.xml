@@ -39,7 +39,7 @@
     <string name="send_report">Отправить отчёт </string>
     <string name="cancelled_text">Отменено</string>
     <string name="exit_reason_text">Причина высадки:</string>
-    <string name="exit_reason_hint">Введите прчину высадки</string>
+    <string name="exit_reason_hint">Введите причину высадки</string>
     <string name="route">Маршрут:</string>
     <string name="report_text">Отчёт</string>
     <string name="report_hint">Содержание отчёта</string>
