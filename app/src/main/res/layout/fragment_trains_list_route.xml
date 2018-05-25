@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/conductor_name_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_padding"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/firstConductorNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/small_padding"
+                android:text="@string/second_conductor_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <EditText
+                android:id="@+id/firstConductorNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/firstConductorNameText"
+                android:gravity="end"
+                android:hint="@string/second_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/secondConductorNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/small_padding"
+                android:text="@string/first_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <EditText
+                android:id="@+id/secondConductorNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/secondConductorNameText"
+                android:gravity="end"
+                android:hint="@string/first_name"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/station_train_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conductor_name_container"
+        android:layout_margin="@dimen/small_padding"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/StartStationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/small_padding"
+                android:text="@string/from_station"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <EditText
+                android:id="@+id/StartStationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/StartStationText"
+                android:gravity="end"
+                android:hint="@string/station_text"
+                android:padding="@dimen/small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/TrainNumberText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/small_padding"
+                android:text="@string/train_number_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <EditText
+                android:id="@+id/TrainNumberEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/TrainNumberText"
+                android:gravity="end"
+                android:hint="@string/train_text"
+                android:padding="@dimen/small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/date_carriage_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/station_train_container"
+        android:layout_margin="@dimen/small_padding"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/startDateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/small_padding"
+                android:text="@string/start_route_date_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <EditText
+                android:id="@+id/startDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/startDateText"
+                android:gravity="end"
+                android:hint="@string/start_route_date_text"
+                android:padding="@dimen/small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/CarriageNumberText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/small_padding"
+                android:text="@string/number_carriage_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/CarriageNumberText"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/firstNumberCarriageEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:hint="@string/first_carriage_text"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/small_padding"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=" ― " />
+
+                <EditText
+                    android:id="@+id/secondNumberCarriageEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:hint="@string/second_carriage_text"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/small_padding"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/regular_text_size" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/addRouteButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/small_padding"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="@string/load_text"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color" />
+
+        <Button
+            android:id="@+id/cancelRouteButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/small_padding"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="@string/cancel_text"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

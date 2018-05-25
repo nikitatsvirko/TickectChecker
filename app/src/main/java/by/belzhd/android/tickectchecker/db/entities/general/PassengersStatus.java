@@ -1,4 +1,4 @@
-package by.belzhd.android.tickectchecker.db.entities;
+package by.belzhd.android.tickectchecker.db.entities.general;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

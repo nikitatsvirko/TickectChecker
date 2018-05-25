@@ -37,5 +37,21 @@
     <string name="load_route">Загрузить маршрут</string>
     <string name="refresh_route">Обновить маршрут</string>
     <string name="send_report">Отправить отчёт </string>
+    <string name="cancelled_text">Отменено</string>
+    <string name="exit_reason_text">Причина высадки:</string>
+    <string name="exit_reason_hint">Введите прчину высадки</string>
+    <string name="route">Маршрут:</string>
+    <string name="report_text">Отчёт</string>
+    <string name="report_hint">Содержание отчёта</string>
+    <string name="send_extra_report">Отправить</string>
+    <string name="train_number_text">Номер поезда</string>
+    <string name="train_text">Поезд</string>
+    <string name="start_route_date_text">Дата отправления</string>
+    <string name="number_carriage_text">Номера вагонов</string>
+    <string name="first_carriage_text">От</string>
+    <string name="second_carriage_text">До</string>
+    <string name="second_conductor_name">Фамилия проводника</string>
+    <string name="load_text">Загрузить</string>
+    <string name="title_trains_list_report">Дополнительный отчёт</string>
 
 </resources>

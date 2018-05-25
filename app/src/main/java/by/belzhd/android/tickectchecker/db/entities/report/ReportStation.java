@@ -1,4 +1,4 @@
-package by.belzhd.android.tickectchecker.db.entities;
+package by.belzhd.android.tickectchecker.db.entities.report;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -6,9 +6,9 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "report_station", foreignKeys = @ForeignKey(entity = ReportRoute.class,
-                                                                parentColumns = "id",
-                                                                childColumns = "rep_route",
-                                                                onDelete = ForeignKey.CASCADE))
+        parentColumns = "id",
+        childColumns = "rep_route",
+        onDelete = ForeignKey.CASCADE))
 public class ReportStation {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -20,7 +20,7 @@ public class ReportStation {
     private long timeEntry;
 
     @ColumnInfo(name = "station")
-    private String station;
+    private int station;
 
     @ColumnInfo(name = "rep_route")
     private int repRoute;
@@ -28,7 +28,7 @@ public class ReportStation {
     @ColumnInfo(name = "status")
     private String status;
 
-    public ReportStation(long timeExit, long timeEntry, String station, int repRoute, String status) {
+    public ReportStation(long timeExit, long timeEntry, int station, int repRoute, String status) {
         this.timeExit = timeExit;
         this.timeEntry = timeEntry;
         this.station = station;
@@ -60,11 +60,11 @@ public class ReportStation {
         this.timeEntry = timeEntry;
     }
 
-    public String getStation() {
+    public int getStation() {
         return station;
     }
 
-    public void setStation(String station) {
+    public void setStation(int station) {
         this.station = station;
     }
 
