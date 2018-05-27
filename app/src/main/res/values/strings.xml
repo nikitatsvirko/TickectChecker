@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <string name="app_name">Ticket Checker</string>
     <string name="title_trains_list">Рейсы</string>
     <string name="search_train">Поиск рейса</string>
