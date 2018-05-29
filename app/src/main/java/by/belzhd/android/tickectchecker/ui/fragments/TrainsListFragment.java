@@ -1,13 +1,15 @@
 package by.belzhd.android.tickectchecker.ui.fragments;
 
+import android.support.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 
-public class TrainsListFragment extends AbstractFragment {
+public class TrainsListFragment extends AbstractFragment implements View.OnClickListener{
     private Spinner leftSpinner;
     private Spinner rightSpinner;
     private Button loadRoute;
@@ -26,6 +28,10 @@ public class TrainsListFragment extends AbstractFragment {
         loadRoute = view.findViewById(R.id.load_route);
         refRoute = view.findViewById(R.id.ref_route);
         sendReport = view.findViewById(R.id.send_report);
+
+        loadRoute.setOnClickListener(this);
+        refRoute.setOnClickListener(this);
+        sendReport.setOnClickListener(this);
 
 
         ArrayAdapter<CharSequence> leftAdapter =  ArrayAdapter.createFromResource(getActivity(),
@@ -48,5 +54,30 @@ public class TrainsListFragment extends AbstractFragment {
     @Override
     int getTitleResId() {
         return R.string.title_trains_list;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.load_route:
+                showLoadScreen();
+                break;
+            case R.id.ref_route:
+                // showAddScreen();
+                break;
+            case R.id.send_report:
+                // showAlert();
+                break;
+        }
+    }
+
+    private void showLoadScreen() {
+        ((MainActivity) getActivity()).hideBottomNavigation();
+        ((MainActivity) getActivity()).replaceFragment(TrainsListRouteFragment.newInstance(), true);
+    }
+
+    private void showExtaReportScreen() {
+        ((MainActivity) getActivity()).hideBottomNavigation();
+        ((MainActivity) getActivity()).replaceFragment(TrainsListReportFragment.newInstance(), true);
     }
 }

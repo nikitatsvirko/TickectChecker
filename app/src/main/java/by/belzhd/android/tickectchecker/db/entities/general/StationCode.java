@@ -33,7 +33,7 @@ public class StationCode {
         return code;
     }
 
-    public void setCode(int id) {
+    public void setCode(int code) {
         this.code = code;
     }
 

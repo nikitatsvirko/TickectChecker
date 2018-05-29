@@ -14,9 +14,16 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
+import java.util.List;
+
 import by.belzhd.android.tickectchecker.R;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
+
+import by.belzhd.android.tickectchecker.utils.exel;
+import by.belzhd.android.tickectchecker.TicketCheckerApplication;
+import by.belzhd.android.tickectchecker.db.entities.general.Train;
+
 
 public class EmbarkationFragment extends AbstractFragment implements View.OnClickListener {
 
@@ -145,9 +152,13 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     }
 
     private void onStartClicked() {
-        startEmbButton.setVisibility(View.INVISIBLE);
+       /* startEmbButton.setVisibility(View.INVISIBLE);
         finishButtonsContainer.setVisibility(View.VISIBLE);
         stationAutoCompleteText.setEnabled(false);
+        */
+        String gg  = exel.parse("passengers_status_180.xlsx");
+        stationAutoCompleteText.setText(gg);
+
     }
 
     private void showAlert() {

@@ -136,7 +136,7 @@
         android:id="@+id/checkButton"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="@dimen/single_button_width"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/name_container"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/small_padding"
