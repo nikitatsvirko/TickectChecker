@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TickectChecker.iml" filepath="$PROJECT_DIR$/TickectChecker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/TickectChecker-app.iml" filepath="$PROJECT_DIR$/app/TickectChecker-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cheker_22.05-TickectChecker.iml" filepath="$PROJECT_DIR$/cheker_22.05-TickectChecker.iml" />
     </modules>
   </component>
 </project>

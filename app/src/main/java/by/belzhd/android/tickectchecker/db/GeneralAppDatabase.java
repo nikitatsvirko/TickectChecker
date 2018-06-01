@@ -22,15 +22,15 @@ import by.belzhd.android.tickectchecker.db.dao.general.TrainDao;
 
 
 @Database(entities = {Cariage.class, Conductor.class, Passengers.class, PassengersStatus.class,
-        Route.class, Seat.class, StationCode.class, Train.class}, version = 1)
+        Route.class, Seat.class, StationCode.class, Train.class}, version = 2)
 public abstract class GeneralAppDatabase extends RoomDatabase {
-    public abstract CariageDao CariageDao();
-    public abstract ConductorDao ConductorDao();
-    public abstract PassengersDao PassengersDao();
-    public abstract PassengersStatusDao PassengersStatusDao();
-    public abstract RouteDao RouteDao();
-    public abstract SeatDao SeatDao();
-    public abstract StationCodeDao StationCodeDao();
-    public abstract TrainDao TrainDao();
+    public abstract CariageDao cariageDao();
+    public abstract ConductorDao conductorDao();
+    public abstract PassengersDao passengersDao();
+    public abstract PassengersStatusDao passengersStatusDao();
+    public abstract RouteDao routeDao();
+    public abstract SeatDao seatDao();
+    public abstract StationCodeDao stationCodeDao();
+    public abstract TrainDao trainDao();
 
 }

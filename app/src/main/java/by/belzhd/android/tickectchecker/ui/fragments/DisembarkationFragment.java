@@ -3,12 +3,18 @@ package by.belzhd.android.tickectchecker.ui.fragments;
 import android.content.DialogInterface;
 import android.support.transition.TransitionManager;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.TicketCheckerApplication;
+import by.belzhd.android.tickectchecker.db.entities.general.StationCode;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
@@ -37,6 +43,7 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
         startDisEmbButton.setOnClickListener(this);
         addDisEmbButton.setOnClickListener(this);
         finishDisEmbButton.setOnClickListener(this);
+        initData();
     }
 
     @Override
@@ -63,6 +70,29 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
                 showAlert();
                 break;
         }
+    }
+
+    private void initData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<StationCode> stationCodeList = TicketCheckerApplication.getGeneralDB().stationCodeDao().getAll();
+                List<String> stationsList = new ArrayList<>();
+                for (StationCode station : stationCodeList) {
+                    stationsList.add(station.getDescription());
+                }
+                final ArrayAdapter<String> adapter =
+                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, stationsList);
+                adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stationAutoCompleteText.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();
     }
 
     private void showAddScreen() {

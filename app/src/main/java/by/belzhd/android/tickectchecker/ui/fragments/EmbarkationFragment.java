@@ -7,6 +7,7 @@ import android.support.transition.TransitionManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,15 +15,15 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.TicketCheckerApplication;
+import by.belzhd.android.tickectchecker.db.entities.general.Route;
+import by.belzhd.android.tickectchecker.db.entities.general.StationCode;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
-
-import by.belzhd.android.tickectchecker.utils.exel;
-import by.belzhd.android.tickectchecker.TicketCheckerApplication;
-import by.belzhd.android.tickectchecker.db.entities.general.Train;
 
 
 public class EmbarkationFragment extends AbstractFragment implements View.OnClickListener {
@@ -37,7 +38,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     private Button startEmbButton;
     private LinearLayout finishButtonsContainer;
     private static RelativeLayout addPersonContainer;
-    private Button checPersonButton;
+    private Button checkPersonButton;
     private Button addEmbButton;
     private Button finishEmbButton;
 
@@ -53,7 +54,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         container = view.findViewById(R.id.container);
         finishButtonsContainer = view.findViewById(R.id.finishEmbButtonsContainer);
         addPersonContainer = view.findViewById(R.id.addPersonContainer);
-        checPersonButton = view.findViewById(R.id.checkButton);
+        checkPersonButton = view.findViewById(R.id.checkButton);
         stationAutoCompleteText = view.findViewById(R.id.stationAutoComplete);
         qrButton = view.findViewById(R.id.qrButton);
         scanButton = view.findViewById(R.id.scanButton);
@@ -66,7 +67,8 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         addEmbButton.setOnClickListener(this);
         qrButton.setOnClickListener(this);
         scanButton.setOnClickListener(this);
-        checPersonButton.setOnClickListener(this);
+        checkPersonButton.setOnClickListener(this);
+        initData();
     }
 
     @Override
@@ -112,6 +114,29 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         }
     }
 
+    private void initData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<StationCode> stationCodeList = TicketCheckerApplication.getGeneralDB().stationCodeDao().getAll();
+                List<String> stationsList = new ArrayList<>();
+                for (StationCode station : stationCodeList) {
+                    stationsList.add(station.getDescription());
+                }
+                final ArrayAdapter<String> adapter =
+                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, stationsList);
+                adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stationAutoCompleteText.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();
+    }
+
     private void checkPerson() {
         addPersonContainer.setVisibility(View.GONE);
         stationAutoCompleteText.setText(EMPTY_STRING);
@@ -152,13 +177,9 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     }
 
     private void onStartClicked() {
-       /* startEmbButton.setVisibility(View.INVISIBLE);
+        startEmbButton.setVisibility(View.INVISIBLE);
         finishButtonsContainer.setVisibility(View.VISIBLE);
         stationAutoCompleteText.setEnabled(false);
-        */
-        String gg  = exel.parse("passengers_status_180.xlsx");
-        stationAutoCompleteText.setText(gg);
-
     }
 
     private void showAlert() {

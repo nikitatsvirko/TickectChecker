@@ -3,6 +3,8 @@ package by.belzhd.android.tickectchecker;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
+import com.huma.room_for_asset.RoomAsset;
+
 import by.belzhd.android.tickectchecker.db.GeneralAppDatabase;
 import by.belzhd.android.tickectchecker.db.ReportsAppDatabase;
 
@@ -17,7 +19,7 @@ public class TicketCheckerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        generalDB = Room.databaseBuilder(this, GeneralAppDatabase.class, GENERAL_DB).allowMainThreadQueries().build();
+        generalDB = RoomAsset.databaseBuilder(this, GeneralAppDatabase.class, GENERAL_DB).build();
         reportsDB = Room.databaseBuilder(this, ReportsAppDatabase.class, REPORTS_DB).allowMainThreadQueries().build();
     }
 

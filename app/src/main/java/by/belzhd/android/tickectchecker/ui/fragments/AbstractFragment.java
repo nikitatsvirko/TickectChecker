@@ -6,22 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.Toolbar;
-
-import by.belzhd.android.tickectchecker.R;
 
 
 public abstract class AbstractFragment extends Fragment {
-
-    Spinner mSpinner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,20 +33,6 @@ public abstract class AbstractFragment extends Fragment {
     }
 
     protected abstract void initUi(View view);
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-
-        MenuItem item = menu.findItem(R.id.spinner);
-        mSpinner = (Spinner) item.getActionView();
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.spinner_list, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mSpinner.setAdapter(adapter);
-    }
 
     private void setUpActionBar() {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
