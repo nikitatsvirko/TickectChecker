@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 
 public class TrainsListRouteFragment extends AbstractFragment implements View.OnClickListener {
 
@@ -16,6 +17,8 @@ public class TrainsListRouteFragment extends AbstractFragment implements View.On
 
     @Override
     protected void initUi(View view) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         addRouteButton = view.findViewById(R.id.addRouteButton);
         cancelRouteButton = view.findViewById(R.id.cancelRouteButton);
 
@@ -37,7 +40,7 @@ public class TrainsListRouteFragment extends AbstractFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addRouteButton:
-                // addPerson();
+                //addPerson();
                 break;
             case R.id.cancelRouteButton:
                 cancelAction();

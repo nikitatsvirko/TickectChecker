@@ -37,7 +37,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Toolbar toolbar;
     private Spinner mSpinner;
     private RelativeLayout container;
-    private Fragment fragment;
+    private Fragment currentFragment;
+    private Fragment fragmentEmb = EmbarkationFragment.newInstance();
+    private Fragment fragmentDisemb = DisembarkationFragment.newInstance();
+    private Fragment fragmentList = TrainsListFragment.newInstance();
     private FragmentManager fragmentManager;
     private BottomNavigationView navigation;
 
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             if(result.getContents() == null) {
                 Toast.makeText(this, R.string.cancelled_text, Toast.LENGTH_LONG).show();
             } else {
-                if (fragment instanceof EmbarkationFragment) {
+                if (currentFragment instanceof EmbarkationFragment) {
                     EmbarkationFragment.onCodeScanned(result.getContents());
                 }
             }
@@ -77,16 +80,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_embarkation:
-                fragment = EmbarkationFragment.newInstance();
+                currentFragment = fragmentEmb;
+                replaceFragment(fragmentEmb, false);
                 break;
             case R.id.navigation_disembarkation:
-                fragment = DisembarkationFragment.newInstance();
+                currentFragment = fragmentDisemb;
+                replaceFragment(fragmentDisemb, false);
                 break;
             case R.id.navigation_dashboard:
-                fragment = TrainsListFragment.newInstance();
+                currentFragment = fragmentList;
+                replaceFragment(fragmentList, false);
                 break;
         }
-        replaceFragment(fragment, false);
         return true;
     }
 
@@ -100,6 +105,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return true;
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    
     private void initData() {
         new Thread(new Runnable() {
             @Override

@@ -6,7 +6,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.TicketCheckerApplication;
 import by.belzhd.android.tickectchecker.db.entities.general.Passengers;
+import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 
 public class EmbarkationAddFragment extends AbstractFragment implements View.OnClickListener {
 
@@ -24,6 +26,9 @@ public class EmbarkationAddFragment extends AbstractFragment implements View.OnC
 
     @Override
     protected void initUi(View view) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         addEmbButton = view.findViewById(R.id.addEmbButton);
         cancelEmbButton = view.findViewById(R.id.cancelEmbButton);
         carriageEditText = view.findViewById(R.id.carriageEditText);
@@ -63,10 +68,6 @@ public class EmbarkationAddFragment extends AbstractFragment implements View.OnC
     }
 
     private void addPerson() {
-        String surname = secondNameEditText.getText().toString();
-        String initials = firstNameEditText.getText().toString();
-        int tickNumb = Integer.parseInt(carriageEditText.getText().toString() + placeEditText.getText().toString());
-        Passengers passenger = new Passengers(surname, initials, tickNumb);
         showToast("Пассажир добавлен");
         getActivity().onBackPressed();
     }

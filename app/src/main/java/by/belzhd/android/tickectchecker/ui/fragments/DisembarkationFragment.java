@@ -33,6 +33,8 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
 
     @Override
     protected void initUi(View view) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         container = view.findViewById(R.id.container);
         finishButtonsContainer = view.findViewById(R.id.finishDisEmbButtonsContainer);
         stationAutoCompleteText = view.findViewById(R.id.stationAutoComplete);

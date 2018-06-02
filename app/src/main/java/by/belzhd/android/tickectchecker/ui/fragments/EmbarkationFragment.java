@@ -48,6 +48,8 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
     @Override
     protected void initUi(View view) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         if (!isCameraPermissionGranted()) {
             requestCameraPermissions();
         }

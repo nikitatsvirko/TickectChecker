@@ -22,6 +22,7 @@ public abstract class AbstractFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        setRetainInstance(true);
         return inflater.inflate(getLayoutId(), container, false);
     }
 

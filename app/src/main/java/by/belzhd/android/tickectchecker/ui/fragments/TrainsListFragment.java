@@ -22,6 +22,8 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
 
     @Override
     protected void initUi(View view) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         leftSpinner = view.findViewById(R.id.leftSpinner);
         rightSpinner = view.findViewById(R.id.rightSpinner);
 

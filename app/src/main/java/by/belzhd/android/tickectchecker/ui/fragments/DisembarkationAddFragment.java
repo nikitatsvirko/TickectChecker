@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 
 import by.belzhd.android.tickectchecker.R;
+import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 
 public class DisembarkationAddFragment extends AbstractFragment implements View.OnClickListener {
 
@@ -16,6 +17,8 @@ public class DisembarkationAddFragment extends AbstractFragment implements View.
 
     @Override
     protected void initUi(View view) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         addButton = view.findViewById(R.id.addDisembButton);
         cancelButton = view.findViewById(R.id.cancelDisembButton);
 
