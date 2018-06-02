@@ -177,12 +177,21 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
     private void onFinishClicked() {
         TicketCheckerApplication.prefs().setIsEmbarkationStarted(false);
+        stationAutoCompleteText.setText(EMPTY_STRING);
         enableContainers(true);
     }
 
     private void onStartClicked() {
-        TicketCheckerApplication.prefs().setIsEmbarkationStarted(true);
-        enableContainers(false);
+        if (!stationAutoCompleteText.getText().toString().isEmpty()) {
+            if (!TicketCheckerApplication.prefs().getIsDisembarkationStarted()) {
+                TicketCheckerApplication.prefs().setIsEmbarkationStarted(true);
+                enableContainers(false);
+            } else {
+                showToast("Завершите высадку!");
+            }
+        } else {
+            showToast("Введите станцию!");
+        }
     }
 
     private void enableContainers(boolean isEnabled) {

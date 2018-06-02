@@ -18,6 +18,8 @@ import by.belzhd.android.tickectchecker.db.entities.general.StationCode;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
+import static by.belzhd.android.tickectchecker.utils.Constants.EMPTY_STRING;
+
 public class DisembarkationFragment extends AbstractFragment implements View.OnClickListener {
 
     private RelativeLayout container;
@@ -46,6 +48,7 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
         addDisEmbButton.setOnClickListener(this);
         finishDisEmbButton.setOnClickListener(this);
         initData();
+        enableContainers(!TicketCheckerApplication.prefs().getIsDisembarkationStarted());
     }
 
     @Override
@@ -105,15 +108,28 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
     }
 
     private void onFinishClicked() {
-        startDisEmbButton.setVisibility(View.VISIBLE);
-        finishButtonsContainer.setVisibility(View.GONE);
-        stationAutoCompleteText.setEnabled(true);
+        TicketCheckerApplication.prefs().setIsDisembarkationStarted(false);
+        stationAutoCompleteText.setText(EMPTY_STRING);
+        enableContainers(true);
     }
 
     private void onStartClicked() {
-        startDisEmbButton.setVisibility(View.GONE);
-        finishButtonsContainer.setVisibility(View.VISIBLE);
-        stationAutoCompleteText.setEnabled(false);
+        if (!stationAutoCompleteText.getText().toString().isEmpty()) {
+            if (!TicketCheckerApplication.prefs().getIsEmbarkationStarted()) {
+                TicketCheckerApplication.prefs().setIsDisembarkationStarted(true);
+                enableContainers(false);
+            } else {
+                showToast("Завершите посадку!");
+            }
+        } else {
+            showToast("Введите станцию!");
+        }
+    }
+
+    private void enableContainers(boolean isEnabled) {
+        startDisEmbButton.setVisibility(isEnabled ? View.VISIBLE : View.INVISIBLE);
+        finishButtonsContainer.setVisibility(isEnabled ? View.INVISIBLE : View.VISIBLE);
+        stationAutoCompleteText.setEnabled(isEnabled);
     }
 
     private void showAlert() {
