@@ -32,5 +32,4 @@ public abstract class GeneralAppDatabase extends RoomDatabase {
     public abstract SeatDao seatDao();
     public abstract StationCodeDao stationCodeDao();
     public abstract TrainDao trainDao();
-
 }

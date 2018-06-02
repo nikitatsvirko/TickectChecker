@@ -30,5 +30,7 @@ public interface TrainDao {
     @Query("SELECT * FROM train")
     List<Train> getAll();
 
+    @Query("SELECT * FROM train WHERE id=:id")
+    Train getTrainById(int id);
 }
 

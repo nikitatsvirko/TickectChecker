@@ -30,5 +30,7 @@ public interface PassengersStatusDao {
     @Query("SELECT * FROM passengers_status")
     List<PassengersStatus> getAll();
 
+    @Query("SELECT * FROM passengers_status WHERE route_id=:id")
+    List<PassengersStatus> getByRouteId(int id);
 }
 

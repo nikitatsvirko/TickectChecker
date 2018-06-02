@@ -30,5 +30,10 @@ public interface RouteDao {
     @Query("SELECT * FROM route")
     List<Route> getAll();
 
+    @Query("SELECT * FROM route WHERE status=:status")
+    List<Route> getByStatus(String status);
+
+    @Query("SELECT * FROM route WHERE id=:id")
+    Route getById(int id);
 }
 

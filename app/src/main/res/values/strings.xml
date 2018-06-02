@@ -53,5 +53,9 @@
     <string name="second_conductor_name">Фамилия проводника</string>
     <string name="load_text">Загрузить</string>
     <string name="title_trains_list_report">Дополнительный отчёт</string>
+    <string name="status_text">Статус:</string>
+    <string name="fake_status">Entry</string>
+    <string name="start_station_text">Станция посадки:</string>
+    <string name="end_station_text">Станция высадки:</string>
 
 </resources>

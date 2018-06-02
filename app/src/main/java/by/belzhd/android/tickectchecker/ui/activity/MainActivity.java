@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -31,6 +32,8 @@ import by.belzhd.android.tickectchecker.db.entities.general.StationCode;
 import by.belzhd.android.tickectchecker.ui.fragments.DisembarkationFragment;
 import by.belzhd.android.tickectchecker.ui.fragments.EmbarkationFragment;
 import by.belzhd.android.tickectchecker.ui.fragments.TrainsListFragment;
+
+import static by.belzhd.android.tickectchecker.utils.Constants.STATUS_LOADED;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -104,6 +107,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         MenuItem item = menu.findItem(R.id.spinner);
         mSpinner = (Spinner) item.getActionView();
+        /*if (TicketCheckerApplication.prefs().getCurrentRoute() != -1) {
+            mSpinner.setSelection(0);
+        }*/
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //TODO improvements kostyl'
+                TicketCheckerApplication.prefs().setCurrentRoute(2);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         initData();
         return true;
     }
@@ -118,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<Route> routesList = TicketCheckerApplication.getGeneralDB().routeDao().getAll();
+                List<Route> routesList = TicketCheckerApplication.getGeneralDB().routeDao().getByStatus(STATUS_LOADED);
                 List<String> routesInString = new ArrayList<>();
                 for (Route route : routesList) {
                     StationCode startStation = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeById(route.getStartStation());

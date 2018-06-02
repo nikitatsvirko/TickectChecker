@@ -30,5 +30,7 @@ public interface SeatDao {
     @Query("SELECT * FROM seat")
     List<Seat> getAll();
 
+    @Query("SELECT * FROM seat WHERE id=:id")
+    Seat getSeatById(int id);
 }
 

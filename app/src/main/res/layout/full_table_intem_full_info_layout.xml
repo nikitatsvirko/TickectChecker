@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/secondNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/second_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/secondNameValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="Петров" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/initialsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/first_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/initialsValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="Н.Н." />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/carriageText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/carriage"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/carriageValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="4645" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/seatText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/place"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/seatValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="56" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/startStationText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/start_station_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/startStationValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="Гродно" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/endStationText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/end_station_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/endStationValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="Минск-Пасс" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/status_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size" />
+
+            <TextView
+                android:id="@+id/statusValueText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/regular_text_size"
+                tools:text="4645" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

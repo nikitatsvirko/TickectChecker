@@ -30,5 +30,7 @@ public interface PassengersDao {
     @Query("SELECT * FROM passengers")
     List<Passengers> getAll();
 
+    @Query("SELECT * FROM passengers WHERE id=:id")
+    Passengers getPassengerById(int id);
 }
 
