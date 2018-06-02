@@ -1,5 +1,6 @@
 package by.belzhd.android.tickectchecker.ui.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 public abstract class AbstractFragment extends Fragment {
 
+    private ProgressDialog progressDialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,8 @@ public abstract class AbstractFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(true);
         return inflater.inflate(getLayoutId(), container, false);
     }
 
@@ -49,4 +54,21 @@ public abstract class AbstractFragment extends Fragment {
     abstract int getLayoutId();
 
     abstract int getTitleResId();
+
+    public void showProgress(String message) {
+        if (progressDialog != null) {
+            if (!progressDialog.isShowing()) {
+                progressDialog.setMessage(message);
+                progressDialog.show();
+            }
+        }
+    }
+
+    public void hideProgress() {
+        if (progressDialog != null) {
+            if (progressDialog.isShowing()) {
+                progressDialog.hide();
+            }
+        }
+    }
 }

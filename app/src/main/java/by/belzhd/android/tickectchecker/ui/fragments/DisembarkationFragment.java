@@ -75,6 +75,7 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
     }
 
     private void initData() {
+        showProgress("Загрузка всех станций");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -90,6 +91,7 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        hideProgress();
                         stationAutoCompleteText.setAdapter(adapter);
                     }
                 });

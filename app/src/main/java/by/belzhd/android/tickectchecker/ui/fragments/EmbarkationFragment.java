@@ -117,6 +117,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     }
 
     private void initData() {
+        showProgress("Загрузка всех станций");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -132,6 +133,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        hideProgress();
                         stationAutoCompleteText.setAdapter(adapter);
                     }
                 });
