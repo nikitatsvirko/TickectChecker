@@ -71,6 +71,7 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         scanButton.setOnClickListener(this);
         checkPersonButton.setOnClickListener(this);
         initData();
+        enableContainers(!TicketCheckerApplication.prefs().getIsEmbarkationStarted());
     }
 
     @Override
@@ -175,15 +176,19 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     }
 
     private void onFinishClicked() {
-        startEmbButton.setVisibility(View.VISIBLE);
-        finishButtonsContainer.setVisibility(View.INVISIBLE);
-        stationAutoCompleteText.setEnabled(true);
+        TicketCheckerApplication.prefs().setIsEmbarkationStarted(false);
+        enableContainers(true);
     }
 
     private void onStartClicked() {
-        startEmbButton.setVisibility(View.INVISIBLE);
-        finishButtonsContainer.setVisibility(View.VISIBLE);
-        stationAutoCompleteText.setEnabled(false);
+        TicketCheckerApplication.prefs().setIsEmbarkationStarted(true);
+        enableContainers(false);
+    }
+
+    private void enableContainers(boolean isEnabled) {
+        startEmbButton.setVisibility(isEnabled ? View.VISIBLE : View.INVISIBLE);
+        finishButtonsContainer.setVisibility(isEnabled ? View.INVISIBLE : View.VISIBLE);
+        stationAutoCompleteText.setEnabled(isEnabled);
     }
 
     private void showAlert() {
