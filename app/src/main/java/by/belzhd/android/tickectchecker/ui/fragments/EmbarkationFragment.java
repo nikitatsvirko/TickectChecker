@@ -6,12 +6,19 @@ import android.content.pm.PackageManager;
 import android.support.transition.TransitionManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
@@ -33,6 +40,10 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
     private RelativeLayout container;
     private static AutoCompleteTextView stationAutoCompleteText;
+    private static EditText carriageText;
+    private static EditText seatText;
+    private static TextView secondNameText;
+    private static TextView initialsText;
     private Button qrButton;
     private Button scanButton;
     private Button startEmbButton;
@@ -56,6 +67,10 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         container = view.findViewById(R.id.container);
         finishButtonsContainer = view.findViewById(R.id.finishEmbButtonsContainer);
         addPersonContainer = view.findViewById(R.id.addPersonContainer);
+        carriageText = view.findViewById(R.id.carriageEditText);
+        seatText = view.findViewById(R.id.placeEditText);
+        secondNameText = view.findViewById(R.id.secondNameEditText);
+        initialsText = view.findViewById(R.id.firstNameEditText);
         checkPersonButton = view.findViewById(R.id.checkButton);
         stationAutoCompleteText = view.findViewById(R.id.stationAutoComplete);
         qrButton = view.findViewById(R.id.qrButton);
@@ -172,7 +187,23 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
     public static void onCodeScanned(String data) {
         addPersonContainer.setVisibility(View.VISIBLE);
-        stationAutoCompleteText.setText(data);
+        manageData(data);
+    }
+
+    private static void manageData(String data) {
+        seatText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (carriageText.getText().toString().equals(EMPTY_STRING)) {
+                    return false;
+                }
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    //TODO find user and insert his second name and initials
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void onFinishClicked() {

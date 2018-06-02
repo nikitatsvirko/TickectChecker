@@ -64,13 +64,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
-            if(result.getContents() == null) {
+            if (currentFragment instanceof EmbarkationFragment) {
+                EmbarkationFragment.onCodeScanned("21001175627024");
+            }
+            /*if(result.getContents() == null) {
                 Toast.makeText(this, R.string.cancelled_text, Toast.LENGTH_LONG).show();
             } else {
                 if (currentFragment instanceof EmbarkationFragment) {
                     EmbarkationFragment.onCodeScanned(result.getContents());
                 }
-            }
+            }*/
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

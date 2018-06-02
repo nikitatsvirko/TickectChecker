@@ -30,5 +30,7 @@ public interface CariageDao {
     @Query("SELECT * FROM cariage")
     List<Cariage> getAll();
 
+    @Query("SELECT * FROM cariage WHERE number=:number")
+    Cariage getCarriageByNumber(int number);
 }
 
