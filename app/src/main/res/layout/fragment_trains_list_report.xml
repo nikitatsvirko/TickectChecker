@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@+id/routeText"
-                android:hint="@string/route"
+                android:hint="@string/route_hint"
                 android:focusableInTouchMode="true"
                 android:singleLine="true"
                 android:imeOptions="actionDone"
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@+id/StationText"
-                android:hint="@string/station_text"
+                android:hint="@string/station_text_hint"
                 android:padding="@dimen/small_padding"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/regular_text_size" />

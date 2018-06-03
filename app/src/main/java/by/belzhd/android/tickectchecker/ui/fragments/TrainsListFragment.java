@@ -1,5 +1,6 @@
 package by.belzhd.android.tickectchecker.ui.fragments;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import by.belzhd.android.tickectchecker.db.entities.general.StationCode;
 import by.belzhd.android.tickectchecker.db.entities.general.Train;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.ui.adapters.FullTableAdapter;
+import by.belzhd.android.tickectchecker.utils.AlertBuilder;
 
 public class TrainsListFragment extends AbstractFragment implements View.OnClickListener, FullTableAdapter.OnItemClickListener {
     private Spinner leftSpinner;
@@ -198,7 +200,7 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
                 // showAddScreen();
                 break;
             case R.id.send_report:
-                // showAlert();
+                showAlert();
                 break;
         }
     }
@@ -238,5 +240,23 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
         alert.setCancelable(true);
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    private void showAlert() {
+        AlertBuilder.showAlert(getActivity(), getActivity().getResources().getString(R.string.extra_report_title),
+                getActivity().getResources().getString(R.string.extra_report_mesage),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showExtaReportScreen();
+                        dialog.cancel();
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
     }
 }

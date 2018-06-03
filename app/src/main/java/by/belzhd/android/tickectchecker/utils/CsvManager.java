@@ -1,5 +1,18 @@
 package by.belzhd.android.tickectchecker.utils;
 
+
+import java.io.FileReader;
+import java.io.FileWriter;
+
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import by.belzhd.android.tickectchecker.utils.RequestInExpress;
+
+
 public class CsvManager {
 
     public boolean convertToCsv(int type, List<String> value ) throws IOException {
@@ -12,20 +25,21 @@ public class CsvManager {
         //Create record
         switch(type) {
             case 1:
-                //record = ("K41;" + "D" + value.get(1) + ";P" + value.get(2)).split(";");
-                // break;
+                record = ("K41;" + "D" + value.get(1) + ";P" + value.get(2)).split(";");
+                writer.writeNext(record);
+                writer.close();
+                result = RequestInExpress.sendRequest(false, csv,file_2);
+                break;
             case 2:
-                //record = ("K40;" + "D" + value.get(1) + ";S"+value.get(2) + ";N" + value.get(3) + "P" + value.get(4)).split(";");
-                record = value.get(1).split(";");
+                record = ("K40;" + "D" + value.get(1) + ";S"+value.get(2) + ";N" + value.get(3) + "P" + value.get(4)).split(";");
                 //Write the record to file
                 writer.writeNext(record);
                 //close the writer
                 writer.close();
-                // result = RequestInExpress.sendRequest(false, csv,file_2);
+                 result = RequestInExpress.sendRequest(false, csv,file_2);
                 break;
             case 3:
-                //record = ("K42;" + "D" + value.get(1) + ";S"+value.get(2) + ";N" + value.get(3) + "P" + value.get(4)).split(";");
-                record = value.get(1).split(";");
+                record = ("K42;" + "D" + value.get(1) + ";S"+value.get(2) + ";N" + value.get(3) + "P" + value.get(4)).split(";");
                 writer.writeNext(record);
                 writer.close();
                 file_2 = value.get(2);
@@ -35,7 +49,7 @@ public class CsvManager {
                     rep_writer.writeNext(record);
                 }
                 rep_writer.close();
-                //  result = RequestInExpress.sendRequest(true, csv,file_2);
+                result = RequestInExpress.sendRequest(true, csv,file_2);
                 break;
         }
 

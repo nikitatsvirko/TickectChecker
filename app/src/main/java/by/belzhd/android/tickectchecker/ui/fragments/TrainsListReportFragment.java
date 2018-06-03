@@ -38,7 +38,19 @@ public class TrainsListReportFragment extends AbstractFragment implements View.O
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addReportButton:
 
+                break;
+            case R.id.cancelReportButton:
+                cancelAction();
+                break;
+        }
+
+    }
+
+    private void cancelAction() {
+        getActivity().onBackPressed();
     }
 
 }
