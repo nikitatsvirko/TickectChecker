@@ -31,7 +31,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/firstConductorNameText"
                 android:gravity="end"
-                android:hint="@string/second_name"
+                android:hint="@string/second_name_hint"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/regular_text_size" />
         </RelativeLayout>
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:padding="@dimen/small_padding"
-                android:text="@string/first_name"
+                android:text="@string/conductor_first_name"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/regular_text_size" />
 
@@ -57,7 +57,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/secondConductorNameText"
                 android:gravity="end"
-                android:hint="@string/first_name"
+                android:hint="@string/first_name_hint"
                 android:inputType="numberDecimal"
                 android:padding="@dimen/small_padding"
                 android:textColor="@android:color/black"
@@ -95,7 +95,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/StartStationText"
                 android:gravity="end"
-                android:hint="@string/station_text"
+                android:hint="@string/station_text_hint"
                 android:padding="@dimen/small_padding"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/regular_text_size" />
@@ -159,7 +159,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/startDateText"
                 android:gravity="end"
-                android:hint="@string/start_route_date_text"
+                android:hint="@string/start_route_date_hint"
                 android:padding="@dimen/small_padding"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/regular_text_size" />
