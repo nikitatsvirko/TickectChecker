@@ -5,6 +5,8 @@ public class Constants {
     public static String REPORTS_DB = "report.db";
 
     public static String STATUS_LOADED = "loaded";
+    public static String STATUS_NOT_ENTRY = "not_entry";
+    public static String STATUS_ENTRY = "entry";
 
     public static String EMPTY_STRING = "";
 }

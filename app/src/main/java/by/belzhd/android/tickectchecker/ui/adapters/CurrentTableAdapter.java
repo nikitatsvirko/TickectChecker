@@ -13,17 +13,17 @@ import java.util.List;
 import by.belzhd.android.tickectchecker.R;
 import by.belzhd.android.tickectchecker.data.PassengerTableEntity;
 
-public class FullTableAdapter extends RecyclerView.Adapter<FullTableAdapter.ViewHolder> {
+public class CurrentTableAdapter extends RecyclerView.Adapter<CurrentTableAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
-        void onFullItemClick(PassengerTableEntity passenger);
+        void onCurrentItemClick(PassengerTableEntity passenger);
     }
 
     private Context mContext;
     private List<PassengerTableEntity> mPassengers;
     private OnItemClickListener mListener;
 
-    public FullTableAdapter(Context context, List<PassengerTableEntity> passengers, OnItemClickListener listener){
+    public CurrentTableAdapter(Context context, List<PassengerTableEntity> passengers, OnItemClickListener listener){
         mContext = context;
         mPassengers = passengers;
         mListener = listener;
@@ -31,14 +31,14 @@ public class FullTableAdapter extends RecyclerView.Adapter<FullTableAdapter.View
 
     @NonNull
     @Override
-    public FullTableAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.full_table_layout_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.current_table_layout_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FullTableAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PassengerTableEntity passenger = mPassengers.get(position);
         holder.bindPassenger(passenger, mListener);
     }
@@ -52,7 +52,6 @@ public class FullTableAdapter extends RecyclerView.Adapter<FullTableAdapter.View
 
         private TextView mSecondNameTextView;
         private TextView mInitialsTextView;
-        private TextView mStatusTextView;
 
         private PassengerTableEntity mPassenger;
 
@@ -60,14 +59,8 @@ public class FullTableAdapter extends RecyclerView.Adapter<FullTableAdapter.View
             mPassenger = passenger;
             mSecondNameTextView.setText(mPassenger.getSecondName());
             mInitialsTextView.setText(mPassenger.getInitials());
-            mStatusTextView.setText(mPassenger.getStatus());
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onFullItemClick(mPassenger);
-                }
-            });
+            itemView.setOnClickListener(view -> listener.onCurrentItemClick(mPassenger));
         }
 
         public ViewHolder(View itemView) {
@@ -75,7 +68,6 @@ public class FullTableAdapter extends RecyclerView.Adapter<FullTableAdapter.View
 
             mSecondNameTextView = (TextView) itemView.findViewById(R.id.secondNameEditText);
             mInitialsTextView = (TextView) itemView.findViewById(R.id.firstNameEditText);
-            mStatusTextView = (TextView) itemView.findViewById(R.id.statusEditText);
         }
     }
 }

@@ -26,7 +26,6 @@ import android.arch.persistence.room.PrimaryKey;
                                                                             childColumns = "passenger",
                                                                             onDelete = ForeignKey.CASCADE)})
 
-//хз как несколько ключей задавать, поэтому так))
 public class PassengersStatus {
     @PrimaryKey(autoGenerate = true)
     private int id;

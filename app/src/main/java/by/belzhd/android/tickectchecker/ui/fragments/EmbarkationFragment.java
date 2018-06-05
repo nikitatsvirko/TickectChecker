@@ -27,10 +27,18 @@ import java.util.List;
 
 import by.belzhd.android.tickectchecker.R;
 import by.belzhd.android.tickectchecker.TicketCheckerApplication;
+import by.belzhd.android.tickectchecker.db.entities.general.Cariage;
+import by.belzhd.android.tickectchecker.db.entities.general.Passengers;
+import by.belzhd.android.tickectchecker.db.entities.general.PassengersStatus;
 import by.belzhd.android.tickectchecker.db.entities.general.Route;
+import by.belzhd.android.tickectchecker.db.entities.general.Seat;
 import by.belzhd.android.tickectchecker.db.entities.general.StationCode;
+import by.belzhd.android.tickectchecker.db.entities.general.Train;
 import by.belzhd.android.tickectchecker.ui.activity.MainActivity;
 import by.belzhd.android.tickectchecker.utils.AlertBuilder;
+
+import static by.belzhd.android.tickectchecker.utils.Constants.STATUS_ENTRY;
+import static by.belzhd.android.tickectchecker.utils.Constants.STATUS_NOT_ENTRY;
 
 
 public class EmbarkationFragment extends AbstractFragment implements View.OnClickListener {
@@ -52,9 +60,14 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     private Button checkPersonButton;
     private Button addEmbButton;
     private Button finishEmbButton;
+    private Passengers currentPassenger;
 
     public static EmbarkationFragment newInstance() {
         return new EmbarkationFragment();
+    }
+
+    public EmbarkationFragment getInstance() {
+        return this;
     }
 
     @Override
@@ -158,8 +171,20 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     }
 
     private void checkPerson() {
-        addPersonContainer.setVisibility(View.GONE);
-        stationAutoCompleteText.setText(EMPTY_STRING);
+        if (currentPassenger != null) {
+            showProgress("Добавляю пассажира...");
+            new Thread(() -> {
+                PassengersStatus passengersStatus = TicketCheckerApplication.getGeneralDB().passengersStatusDao().getByPassengerId(currentPassenger.getId());
+                passengersStatus.setStatus(STATUS_ENTRY);
+                TicketCheckerApplication.getGeneralDB().passengersStatusDao().update(passengersStatus);
+                TicketCheckerApplication.getGeneralDB().passengersDao().update(currentPassenger);
+
+                getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    addPersonContainer.setVisibility(View.GONE);
+                });
+            }).start();
+        }
     }
 
     private void showAddScreen() {
@@ -185,25 +210,47 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         integrator.initiateScan();
     }
 
-    public static void onCodeScanned(String data) {
+    public void onCodeScanned(String data) {
         addPersonContainer.setVisibility(View.VISIBLE);
         manageData(data);
     }
 
-    private static void manageData(String data) {
-        seatText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (carriageText.getText().toString().equals(EMPTY_STRING)) {
-                    return false;
-                }
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //TODO find user and insert his second name and initials
-                    return true;
-                }
+    private void manageData(String data) {
+        seatText.setOnKeyListener((v, keyCode, event) -> {
+            if (carriageText.getText().toString().equals(EMPTY_STRING)) {
                 return false;
             }
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                //TODO find user and insert his second name and initials
+                searchForUser(data);
+                return true;
+            }
+            return false;
         });
+    }
+
+    private void searchForUser(String data) {
+        showProgress("Поиск пассажира...");
+        new Thread(() -> {
+            Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
+            Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
+            Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao()
+                    .getCarriageByNumberAndTrainId(Integer.parseInt(carriageText.getText().toString()), train.getId());
+            Seat seat = TicketCheckerApplication.getGeneralDB().seatDao()
+                    .getSeatByNumberAndCarriageId(Integer.parseInt(seatText.getText().toString()), cariage.getId());
+            StationCode station = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeByDescription(stationAutoCompleteText.getText().toString().trim());
+            PassengersStatus passengersStatus = TicketCheckerApplication.getGeneralDB()
+                    .passengersStatusDao().getPassengerStatusBy(seat.getId(), route.getId(), station.getId(), STATUS_NOT_ENTRY);
+            Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao().getPassengerById(passengersStatus.getPassenger());
+
+            this.getActivity().runOnUiThread(() -> {
+                hideProgress();
+                secondNameText.setText(passengers.getSurname());
+                initialsText.setText(passengers.getInitials());
+                passengers.setTicketNumber(Integer.parseInt(data));
+                currentPassenger = passengers;
+            });
+        }).start();
     }
 
     private void onFinishClicked() {

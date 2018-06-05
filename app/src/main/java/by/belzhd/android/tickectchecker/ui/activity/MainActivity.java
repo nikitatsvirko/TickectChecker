@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Fragment fragmentList = TrainsListFragment.newInstance();
     private FragmentManager fragmentManager;
     private BottomNavigationView navigation;
+    private MenuItem spinnerItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +67,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if (currentFragment instanceof EmbarkationFragment) {
-                EmbarkationFragment.onCodeScanned("21001175627024");
+                ((EmbarkationFragment) currentFragment).onCodeScanned("210011756");
             }
-            /*if(result.getContents() == null) {
-                Toast.makeText(this, R.string.cancelled_text, Toast.LENGTH_LONG).show();
-            } else {
-                if (currentFragment instanceof EmbarkationFragment) {
-                    EmbarkationFragment.onCodeScanned(result.getContents());
-                }
-            }*/
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -105,11 +97,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
-        MenuItem item = menu.findItem(R.id.spinner);
-        mSpinner = (Spinner) item.getActionView();
-        /*if (TicketCheckerApplication.prefs().getCurrentRoute() != -1) {
-            mSpinner.setSelection(0);
-        }*/
+        spinnerItem = menu.findItem(R.id.spinner);
+        mSpinner = (Spinner) spinnerItem.getActionView();
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -133,36 +122,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
     
     private void initData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<Route> routesList = TicketCheckerApplication.getGeneralDB().routeDao().getByStatus(STATUS_LOADED);
-                List<String> routesInString = new ArrayList<>();
-                for (Route route : routesList) {
-                    StationCode startStation = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeById(route.getStartStation());
-                    StationCode endStation = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeById(route.getEndStation());
-                    routesInString.add(startStation.getDescription() + " - " + endStation.getDescription());
-                }
-                final ArrayAdapter<String> adapter =
-                        new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, routesInString);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSpinner.setAdapter(adapter);
-                    }
-                });
+        new Thread(() -> {
+            List<Route> routesList = TicketCheckerApplication.getGeneralDB().routeDao().getByStatus(STATUS_LOADED);
+            List<String> routesInString = new ArrayList<>();
+            for (Route route : routesList) {
+                StationCode startStation = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeById(route.getStartStation());
+                StationCode endStation = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeById(route.getEndStation());
+                routesInString.add(startStation.getDescription() + " - " + endStation.getDescription());
             }
+            final ArrayAdapter<String> adapter =
+                    new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, routesInString);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            runOnUiThread(() -> mSpinner.setAdapter(adapter));
         }).start();
     }
 
-    public Spinner getSpinner() {
-        return mSpinner;
+    public MenuItem getSpinner() {
+        return spinnerItem;
     }
 
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
-        TransitionManager.beginDelayedTransition(container);
         final FragmentTransaction transaction = fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment);
         if (addToBackStack) {

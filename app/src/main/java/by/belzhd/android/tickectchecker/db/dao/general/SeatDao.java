@@ -32,5 +32,8 @@ public interface SeatDao {
 
     @Query("SELECT * FROM seat WHERE id=:id")
     Seat getSeatById(int id);
+
+    @Query("SELECT * FROM seat WHERE cariage_id=:carriageId AND number=:number")
+    Seat getSeatByNumberAndCarriageId(int number, int carriageId);
 }
 

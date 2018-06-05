@@ -1,6 +1,6 @@
 package by.belzhd.android.tickectchecker.data;
 
-public class PassengerTableFull {
+public class PassengerTableEntity {
 
     private String secondName;
     private String initials;
@@ -10,7 +10,7 @@ public class PassengerTableFull {
     private String endStation;
     private String status;
 
-    public PassengerTableFull(String secondName, String initials, int carriageNumber, int seatNumber, String startStation, String endStation, String status) {
+    public PassengerTableEntity(String secondName, String initials, int carriageNumber, int seatNumber, String startStation, String endStation, String status) {
         this.secondName = secondName;
         this.initials = initials;
         this.carriageNumber = carriageNumber;
@@ -20,7 +20,7 @@ public class PassengerTableFull {
         this.status = status;
     }
 
-    public PassengerTableFull() {
+    public PassengerTableEntity() {
 
     }
 

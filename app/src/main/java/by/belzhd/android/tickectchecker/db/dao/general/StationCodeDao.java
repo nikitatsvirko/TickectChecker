@@ -32,5 +32,8 @@ public interface StationCodeDao {
 
     @Query("SELECT * FROM station_code WHERE id=:id")
     StationCode getStationCodeById(int id);
+
+    @Query("SELECT * FROM station_code WHERE description=:description")
+    StationCode getStationCodeByDescription(String description);
 }
 
