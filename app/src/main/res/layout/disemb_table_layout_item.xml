@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/name_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_padding"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/secondNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingBottom="@dimen/very_small_padding"
+                android:text="@string/second_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_text" />
+
+            <TextView
+                android:id="@+id/secondNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/secondNameText"
+                android:gravity="start"
+                android:paddingTop="@dimen/very_small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_text"
+                tools:text="@string/fake_second_name" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/firstNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingBottom="@dimen/very_small_padding"
+                android:text="@string/first_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_text" />
+
+            <TextView
+                android:id="@+id/firstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstNameText"
+                android:gravity="start"
+                android:paddingTop="@dimen/very_small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_text"
+                tools:text="@string/fake_first_name" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/carriageSeatText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingBottom="@dimen/very_small_padding"
+                android:text="@string/carriage_seat_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_text" />
+
+            <TextView
+                android:id="@+id/carriageSeatValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/carriageSeatText"
+                android:gravity="start"
+                android:paddingTop="@dimen/very_small_padding"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/small_text"
+                tools:text="@string/fake_carriage_seat" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Switch
+                android:id="@+id/swithStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/name_container"
+        android:background="@android:color/darker_gray" />
+
+</RelativeLayout>

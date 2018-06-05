@@ -160,6 +160,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
+    protected void onDestroy() {
+        TicketCheckerApplication.prefs().setIsEmbarkationStarted(false);
+        TicketCheckerApplication.prefs().setIsDisembarkationStarted(false);
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         if (navigation.getVisibility() == View.GONE) {
             showBottomNavigation();

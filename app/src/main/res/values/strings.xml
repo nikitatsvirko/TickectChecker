@@ -63,4 +63,6 @@
     <string name="end_station_text">Станция высадки:</string>
     <string name="extra_report_mesage">Отправить дополнительный отчёт?</string>
     <string name="extra_report_title">Дополнительный отчёт</string>
+    <string name="carriage_seat_text">Вагон/Место:</string>
+    <string name="fake_carriage_seat">5/91</string>
 </resources>
