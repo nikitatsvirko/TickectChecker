@@ -181,36 +181,44 @@ public class DisembarkationFragment extends AbstractFragment implements View.OnC
     private void loadData() {
         showProgress("Загрузка текущей таблицы");
         new Thread(() -> {
-            mPassengers.clear();
-            Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
-            Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
-            Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao().getCarriageByTrainId(train.getId());
-            List<PassengersStatus> passengersStatuses = TicketCheckerApplication.getGeneralDB()
-                    .passengersStatusDao().getByRouteIdAndStatus(TicketCheckerApplication.prefs().getCurrentRoute(), STATUS_ENTRY);
-            for (PassengersStatus passStatus: passengersStatuses) {
-                PassengerDisemb passenger = new PassengerDisemb();
+            try {
+                mPassengers.clear();
+                
+                Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
+                Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
+                Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao().getCarriageByTrainId(train.getId());
+                List<PassengersStatus> passengersStatuses = TicketCheckerApplication.getGeneralDB()
+                        .passengersStatusDao().getByRouteIdAndStatus(TicketCheckerApplication.prefs().getCurrentRoute(), STATUS_ENTRY);
+                for (PassengersStatus passStatus : passengersStatuses) {
+                    PassengerDisemb passenger = new PassengerDisemb();
 
-                StationCode exitStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
-                        .getStationCodeById(passStatus.getExitStation());
-                Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao()
-                        .getPassengerById(passStatus.getPassenger());
-                Seat seat = TicketCheckerApplication.getGeneralDB().seatDao().getSeatById(passStatus.getSeatId());
+                    StationCode exitStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
+                            .getStationCodeById(passStatus.getExitStation());
+                    Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao()
+                            .getPassengerById(passStatus.getPassenger());
+                    Seat seat = TicketCheckerApplication.getGeneralDB().seatDao().getSeatById(passStatus.getSeatId());
 
-                passenger.setId(passengers.getId());
-                passenger.setSecondName(passengers.getSurname());
-                passenger.setInitials(passengers.getInitials());
-                passenger.setCarriageNumber(cariage.getNumber());
-                passenger.setSeatNumber(seat.getNumber());
-                passenger.setStatus(passStatus.getStatus());
-                if (exitStation.getDescription().equals(stationAutoCompleteText.getText().toString())) {
-                    mPassengers.add(passenger);
+                    passenger.setId(passengers.getId());
+                    passenger.setSecondName(passengers.getSurname());
+                    passenger.setInitials(passengers.getInitials());
+                    passenger.setCarriageNumber(cariage.getNumber());
+                    passenger.setSeatNumber(seat.getNumber());
+                    passenger.setStatus(passStatus.getStatus());
+                    if (exitStation.getDescription().equals(stationAutoCompleteText.getText().toString())) {
+                        mPassengers.add(passenger);
+                    }
                 }
-            }
 
-            getActivity().runOnUiThread(() -> {
-                adapter.notifyDataSetChanged();
-                hideProgress();
-            });
+                getActivity().runOnUiThread(() -> {
+                    adapter.notifyDataSetChanged();
+                    hideProgress();
+                });
+            } catch (NullPointerException e) {
+                getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    showToast("Не удалось загрузить данные");
+                });
+            }
         }).start();
     }
 }

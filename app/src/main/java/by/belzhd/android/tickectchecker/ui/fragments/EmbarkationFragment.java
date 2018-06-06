@@ -147,10 +147,10 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
 
     private void initData() {
         showProgress("Загрузка всех станций");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
+            try {
                 List<StationCode> stationCodeList = TicketCheckerApplication.getGeneralDB().stationCodeDao().getAll();
+
                 List<String> stationsList = new ArrayList<>();
                 for (StationCode station : stationCodeList) {
                     stationsList.add(station.getDescription());
@@ -159,12 +159,14 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
                         new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, stationsList);
                 adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideProgress();
-                        stationAutoCompleteText.setAdapter(adapter);
-                    }
+                getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    stationAutoCompleteText.setAdapter(adapter);
+                });
+            } catch (NullPointerException e) {
+                getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    showToast("Не удалось загрузить маршруты");
                 });
             }
         }).start();
@@ -174,15 +176,22 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
         if (currentPassenger != null) {
             showProgress("Добавляю пассажира...");
             new Thread(() -> {
-                PassengersStatus passengersStatus = TicketCheckerApplication.getGeneralDB().passengersStatusDao().getByPassengerId(currentPassenger.getId());
-                passengersStatus.setStatus(STATUS_ENTRY);
-                TicketCheckerApplication.getGeneralDB().passengersStatusDao().update(passengersStatus);
-                TicketCheckerApplication.getGeneralDB().passengersDao().update(currentPassenger);
+                try {
+                    PassengersStatus passengersStatus = TicketCheckerApplication.getGeneralDB().passengersStatusDao().getByPassengerId(currentPassenger.getId());
+                    passengersStatus.setStatus(STATUS_ENTRY);
+                    TicketCheckerApplication.getGeneralDB().passengersStatusDao().update(passengersStatus);
+                    TicketCheckerApplication.getGeneralDB().passengersDao().update(currentPassenger);
 
-                getActivity().runOnUiThread(() -> {
-                    hideProgress();
-                    addPersonContainer.setVisibility(View.GONE);
-                });
+                    getActivity().runOnUiThread(() -> {
+                        hideProgress();
+                        addPersonContainer.setVisibility(View.GONE);
+                    });
+                } catch (NullPointerException e) {
+                    getActivity().runOnUiThread(() -> {
+                        hideProgress();
+                        showToast("Не удалось обновить данные");
+                    });
+                }
             }).start();
         }
     }
@@ -221,7 +230,6 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
                 return false;
             }
             if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                //TODO find user and insert his second name and initials
                 searchForUser(data);
                 return true;
             }
@@ -232,24 +240,31 @@ public class EmbarkationFragment extends AbstractFragment implements View.OnClic
     private void searchForUser(String data) {
         showProgress("Поиск пассажира...");
         new Thread(() -> {
-            Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
-            Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
-            Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao()
-                    .getCarriageByNumberAndTrainId(Integer.parseInt(carriageText.getText().toString()), train.getId());
-            Seat seat = TicketCheckerApplication.getGeneralDB().seatDao()
-                    .getSeatByNumberAndCarriageId(Integer.parseInt(seatText.getText().toString()), cariage.getId());
-            StationCode station = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeByDescription(stationAutoCompleteText.getText().toString().trim());
-            PassengersStatus passengersStatus = TicketCheckerApplication.getGeneralDB()
-                    .passengersStatusDao().getPassengerStatusBy(seat.getId(), route.getId(), station.getId(), STATUS_NOT_ENTRY);
-            Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao().getPassengerById(passengersStatus.getPassenger());
+            try {
+                Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
+                Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
+                Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao()
+                        .getCarriageByNumberAndTrainId(Integer.parseInt(carriageText.getText().toString()), train.getId());
+                Seat seat = TicketCheckerApplication.getGeneralDB().seatDao()
+                        .getSeatByNumberAndCarriageId(Integer.parseInt(seatText.getText().toString()), cariage.getId());
+                StationCode station = TicketCheckerApplication.getGeneralDB().stationCodeDao().getStationCodeByDescription(stationAutoCompleteText.getText().toString().trim());
+                PassengersStatus passengersStatus = TicketCheckerApplication.getGeneralDB()
+                        .passengersStatusDao().getPassengerStatusBy(seat.getId(), route.getId(), station.getId(), STATUS_NOT_ENTRY);
+                Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao().getPassengerById(passengersStatus.getPassenger());
 
-            this.getActivity().runOnUiThread(() -> {
-                hideProgress();
-                secondNameText.setText(passengers.getSurname());
-                initialsText.setText(passengers.getInitials());
-                passengers.setTicketNumber(Integer.parseInt(data));
-                currentPassenger = passengers;
-            });
+                this.getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    secondNameText.setText(passengers.getSurname());
+                    initialsText.setText(passengers.getInitials());
+                    passengers.setTicketNumber(Integer.parseInt(data));
+                    currentPassenger = passengers;
+                });
+            } catch (NullPointerException ex) {
+                this.getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    showToast("Не удалось загрузить данные");
+                });
+            }
         }).start();
     }
 

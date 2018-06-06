@@ -71,7 +71,7 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
 
         currentTableAdapter = new CurrentTableAdapter(getActivity(), passengersTableCurrent, this);
 
-        ArrayAdapter<CharSequence> rightAdapter =  ArrayAdapter.createFromResource(getActivity(),
+        ArrayAdapter<CharSequence> rightAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.right_spinner_list, R.layout.spinner_item_black);
         rightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rightSpinner.setAdapter(rightAdapter);
@@ -96,7 +96,7 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
             }
         });
 
-        ArrayAdapter<CharSequence> leftAdapter =  ArrayAdapter.createFromResource(getActivity(),
+        ArrayAdapter<CharSequence> leftAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.left_spinner_list, R.layout.spinner_item_black);
         leftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         leftSpinner.setAdapter(leftAdapter);
@@ -161,7 +161,7 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
     private void sortBySeatNumber(List<PassengerTableEntity> list, RecyclerView.Adapter adapter) {
         if (list.size() > 0) {
             Collections.sort(list, (o1, o2) -> {
-                if(o1.getSeatNumber() == o2.getSeatNumber())
+                if (o1.getSeatNumber() == o2.getSeatNumber())
                     return 0;
                 return o1.getSeatNumber() < o2.getSeatNumber() ? -1 : 1;
             });
@@ -187,94 +187,110 @@ public class TrainsListFragment extends AbstractFragment implements View.OnClick
     private void loadFullData() {
         showProgress("Загрузка полной таблицы");
         new Thread(() -> {
-            passengersTableFull.clear();
-            Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
-            Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
-            Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao().getCarriageByTrainId(train.getId());
-            List<PassengersStatus> passengersStatuses = TicketCheckerApplication.getGeneralDB()
-                    .passengersStatusDao().getByRouteId(TicketCheckerApplication.prefs().getCurrentRoute());
-            for (PassengersStatus passStatus: passengersStatuses) {
-                PassengerTableEntity passenger = new PassengerTableEntity();
+            try {
+                passengersTableFull.clear();
 
-                StationCode startStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
-                        .getStationCodeById(passStatus.getEntryStation());
-                StationCode exitStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
-                        .getStationCodeById(passStatus.getExitStation());
-                Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao()
-                        .getPassengerById(passStatus.getPassenger());
-                Seat seat = TicketCheckerApplication.getGeneralDB().seatDao().getSeatById(passStatus.getSeatId());
+                Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
+                Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
+                Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao().getCarriageByTrainId(train.getId());
+                List<PassengersStatus> passengersStatuses = TicketCheckerApplication.getGeneralDB()
+                        .passengersStatusDao().getByRouteId(TicketCheckerApplication.prefs().getCurrentRoute());
+                for (PassengersStatus passStatus : passengersStatuses) {
+                    PassengerTableEntity passenger = new PassengerTableEntity();
 
-                passenger.setSecondName(passengers.getSurname());
-                passenger.setInitials(passengers.getInitials());
-                passenger.setCarriageNumber(cariage.getNumber());
-                passenger.setStatus(passStatus.getStatus());
-                passenger.setStartStation(startStation.getDescription());
-                passenger.setEndStation(exitStation.getDescription());
-                passenger.setSeatNumber(seat.getNumber());
-                passengersTableFull.add(passenger);
-            }
+                    StationCode startStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
+                            .getStationCodeById(passStatus.getEntryStation());
+                    StationCode exitStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
+                            .getStationCodeById(passStatus.getExitStation());
+                    Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao()
+                            .getPassengerById(passStatus.getPassenger());
+                    Seat seat = TicketCheckerApplication.getGeneralDB().seatDao().getSeatById(passStatus.getSeatId());
 
-            getActivity().runOnUiThread(() -> {
-                recyclerView.setAdapter(fullTableAdapter);
-                fullTableAdapter.notifyDataSetChanged();
-                switch (leftSpinner.getSelectedItemPosition()) {
-                    case 0:
-                        sortFullBySecondName();
-                        break;
-                    case 1:
-                        sortFullBySeatNumber();
-                        break;
-                    case 2:
-                        sortFullByStation();
-                        break;
+                    passenger.setSecondName(passengers.getSurname());
+                    passenger.setInitials(passengers.getInitials());
+                    passenger.setCarriageNumber(cariage.getNumber());
+                    passenger.setStatus(passStatus.getStatus());
+                    passenger.setStartStation(startStation.getDescription());
+                    passenger.setEndStation(exitStation.getDescription());
+                    passenger.setSeatNumber(seat.getNumber());
+                    passengersTableFull.add(passenger);
                 }
-                hideProgress();
-            });
+
+                getActivity().runOnUiThread(() -> {
+                    recyclerView.setAdapter(fullTableAdapter);
+                    fullTableAdapter.notifyDataSetChanged();
+                    switch (leftSpinner.getSelectedItemPosition()) {
+                        case 0:
+                            sortFullBySecondName();
+                            break;
+                        case 1:
+                            sortFullBySeatNumber();
+                            break;
+                        case 2:
+                            sortFullByStation();
+                            break;
+                    }
+                    hideProgress();
+                });
+            } catch (NullPointerException e) {
+                getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    showToast("Не удалось загрузить данные");
+                });
+            }
         }).start();
     }
 
     private void loadCurrentData() {
         showProgress("Загрузка текущей таблицы");
         new Thread(() -> {
-            passengersTableCurrent.clear();
-            Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
-            Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
-            Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao().getCarriageByTrainId(train.getId());
-            List<PassengersStatus> passengersStatuses = TicketCheckerApplication.getGeneralDB()
-                    .passengersStatusDao().getByRouteIdAndStatus(TicketCheckerApplication.prefs().getCurrentRoute(), STATUS_ENTRY);
-            for (PassengersStatus passStatus: passengersStatuses) {
-                PassengerTableEntity passenger = new PassengerTableEntity();
+            try {
+                passengersTableCurrent.clear();
 
-                StationCode exitStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
-                        .getStationCodeById(passStatus.getExitStation());
-                Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao()
-                        .getPassengerById(passStatus.getPassenger());
-                Seat seat = TicketCheckerApplication.getGeneralDB().seatDao().getSeatById(passStatus.getSeatId());
+                Route route = TicketCheckerApplication.getGeneralDB().routeDao().getById(TicketCheckerApplication.prefs().getCurrentRoute());
+                Train train = TicketCheckerApplication.getGeneralDB().trainDao().getTrainById(route.getTrainNumber());
+                Cariage cariage = TicketCheckerApplication.getGeneralDB().cariageDao().getCarriageByTrainId(train.getId());
+                List<PassengersStatus> passengersStatuses = TicketCheckerApplication.getGeneralDB()
+                        .passengersStatusDao().getByRouteIdAndStatus(TicketCheckerApplication.prefs().getCurrentRoute(), STATUS_ENTRY);
+                for (PassengersStatus passStatus : passengersStatuses) {
+                    PassengerTableEntity passenger = new PassengerTableEntity();
 
-                passenger.setSecondName(passengers.getSurname());
-                passenger.setInitials(passengers.getInitials());
-                passenger.setCarriageNumber(cariage.getNumber());
-                passenger.setEndStation(exitStation.getDescription());
-                passenger.setSeatNumber(seat.getNumber());
-                passengersTableCurrent.add(passenger);
-            }
+                    StationCode exitStation = TicketCheckerApplication.getGeneralDB().stationCodeDao()
+                            .getStationCodeById(passStatus.getExitStation());
+                    Passengers passengers = TicketCheckerApplication.getGeneralDB().passengersDao()
+                            .getPassengerById(passStatus.getPassenger());
+                    Seat seat = TicketCheckerApplication.getGeneralDB().seatDao().getSeatById(passStatus.getSeatId());
 
-            getActivity().runOnUiThread(() -> {
-                recyclerView.setAdapter(currentTableAdapter);
-                currentTableAdapter.notifyDataSetChanged();
-                switch (leftSpinner.getSelectedItemPosition()) {
-                    case 0:
-                        sortCurrentBySecondName();
-                        break;
-                    case 1:
-                        sortCurrentBySeatNumber();
-                        break;
-                    case 2:
-                        sortCurrentByStation();
-                        break;
+                    passenger.setSecondName(passengers.getSurname());
+                    passenger.setInitials(passengers.getInitials());
+                    passenger.setCarriageNumber(cariage.getNumber());
+                    passenger.setEndStation(exitStation.getDescription());
+                    passenger.setSeatNumber(seat.getNumber());
+                    passengersTableCurrent.add(passenger);
                 }
-                hideProgress();
-            });
+
+                getActivity().runOnUiThread(() -> {
+                    recyclerView.setAdapter(currentTableAdapter);
+                    currentTableAdapter.notifyDataSetChanged();
+                    switch (leftSpinner.getSelectedItemPosition()) {
+                        case 0:
+                            sortCurrentBySecondName();
+                            break;
+                        case 1:
+                            sortCurrentBySeatNumber();
+                            break;
+                        case 2:
+                            sortCurrentByStation();
+                            break;
+                    }
+                    hideProgress();
+                });
+            } catch (NullPointerException e) {
+                getActivity().runOnUiThread(() -> {
+                    hideProgress();
+                    showToast("Не удалось загрузить данные");
+                });
+            }
         }).start();
     }
 
